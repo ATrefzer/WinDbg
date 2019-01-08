@@ -1,0 +1,1 @@
+procdump  -e 1 -t -ma -n 1000 <ProcessNameWithoutExcention>

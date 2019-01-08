@@ -1,0 +1,1 @@
+procdump -ma <ProcessNameWithoutExcention>

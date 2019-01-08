@@ -1,0 +1,1 @@
+procdump -ma -e 1 -f "AccessViolation" <ProcessNameWithoutExcention>
