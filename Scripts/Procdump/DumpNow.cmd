@@ -1,1 +1,1 @@
-procdump -ma <ProcessNameWithoutExcention>
+procdump -ma <ProcessNameWithoutExtension>
