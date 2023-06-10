@@ -1,0 +1,41 @@
+// Example from the Book Learning Malware Analysis
+
+main()
+push 3 ➊
+push 2 ➋
+call test ➌
+add esp, 8 ; after test is exectued, the control is returned here
+xor eax, eax
+
+
+test(int, int)
+push ebp ➍
+mov ebp, esp ➎
+sub esp, 8 ➑
+mov eax, [ebp+8]
+mov [ebp-4], eax
+mov ecx, [ebp+0Ch]
+mov [ebp-8], ecx
+xor eax, eax ➒			; Return value
+mov esp, ebp ➏
+pop ebp ➐
+ret ➓
+
+cdecl
+
+1. ➊➋Function arguments are pushed from right to left.
+    (In a function its own argument 1 is closer to its EBP
+ 	than following arguments)
+2. ➌ Call pushes the return address on the stack and jumps.
+3. Prolog
+	- ➍Store EPB on stack.
+	- ➎Set new EBP = ESP.
+	- Now EPB and ESP point to the stack location where old EBP is stored
+4. ➑Allocate stack variables
+5. Epilog - Restore old value of EPB
+	- ➏ESP = EBP (points to child EPB)
+	- ➐Pop EBP	
+6. Return takes the return address from stack 
+7. What is left on the stack are the function  arbuments that are  
+   removed by the caller in _cdecl.
+=> ESP is back to the value before the call.
